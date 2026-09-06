@@ -22,6 +22,10 @@
   main { text-align: center; }
   img { width: 132px; height: 132px; border-radius: 30px; display: block; margin: 0 auto 36px; }
   .boutons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  /* Le pictogramme dit le système avant que l'étiquette soit lue, et il aligne
+     les deux boutons sur une même ligne de base optique. */
+  a { display: inline-flex; align-items: center; gap: 10px; }
+  a svg { width: 19px; height: 19px; flex: none; }
   a {
     display: inline-block; background: var(--jaune); color: #14160f;
     text-decoration: none; font-size: 17px; font-weight: 700;
@@ -41,8 +45,14 @@
 <main>
   <img src="logo.svg" alt="Trapèze" width="132" height="132">
   <div class="boutons">
-    <a id="telecharger" href="https://github.com/apotrash/trapeze/releases/latest">Télécharger pour Mac</a>
-    <a id="telecharger-windows" class="essai" href="https://github.com/apotrash/trapeze/releases/latest">Windows (essai)</a>
+    <a id="telecharger" href="https://github.com/apotrash/trapeze/releases/latest">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9 .8 1.1 1.6 2.3 2.8 2.2 1.1 0 1.6-.7 2.9-.7s1.7.7 2.9.7 2-1.1 2.7-2.2c.9-1.2 1.2-2.4 1.2-2.5 0 0-2.3-.9-2.3-3.6zM14.5 5.3c.6-.8 1-1.8.9-2.9-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-.9 2.8 1 .1 2-.5 2.7-1.3z"/></svg>
+      Télécharger pour Mac
+    </a>
+    <a id="telecharger-windows" class="essai" href="https://github.com/apotrash/trapeze/releases/latest">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.6l7.2-1v6.9H3V5.6zm0 12.8l7.2 1v-6.8H3v5.8zm8 1.1l10 1.4v-8.3H11v6.9zm0-15.1v7h10V3l-10 1.4z"/></svg>
+      Windows (essai)
+    </a>
   </div>
   <p id="details">Apple Silicon</p>
   <p class="avertissement">La version Windows n’est pas encore signée : Windows affichera « Windows a protégé votre PC ». Choisissez « Informations complémentaires », puis « Exécuter quand même ».</p>
