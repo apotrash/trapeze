@@ -58,7 +58,9 @@
     const version = await reponse.json();
     const actifs = version.assets || [];
     const image = actifs.find((f) => f.name.endsWith('.dmg'));
-    const windows = actifs.find((f) => f.name.endsWith('-win.zip'));
+    /* L'installeur, et non l'archive : c'est lui qui pose l'application là où
+       la mise à jour interne saura la remplacer. */
+    const windows = actifs.find((f) => f.name.endsWith('.exe'));
     const numero = String(version.tag_name).replace(/^v/, '');
     const taille = (f) => `${Math.round(f.size / 1048576)} Mo`;
     const morceaux = [`Version ${numero}`];
