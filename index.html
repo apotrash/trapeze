@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trapèze</title>
-<meta name="description" content="Transcription et synthèse vidéo pour Mac.">
+<meta name="description" content="Transcription et synthèse vidéo pour Mac et Windows.">
 <link rel="icon" href="logo.svg">
 <style>
   :root { --papier: #f4f1ea; --encre: #14160f; --gris: #6b6a63; --jaune: #e8ee6f; }
@@ -21,6 +21,7 @@
   }
   main { text-align: center; }
   img { width: 132px; height: 132px; border-radius: 30px; display: block; margin: 0 auto 36px; }
+  .boutons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   a {
     display: inline-block; background: var(--jaune); color: #14160f;
     text-decoration: none; font-size: 17px; font-weight: 700;
@@ -28,15 +29,23 @@
     border: 1px solid rgba(0,0,0,.08);
     transition: transform .12s ease, filter .12s ease;
   }
+  /* Windows reste au second plan tant que le binaire n'est pas signé : c'est
+     un essai, pas une version que l'on met dans les mains de n'importe qui. */
+  a.essai { background: transparent; color: var(--encre); border-color: var(--gris); font-weight: 600; }
   a:hover { transform: translateY(-1px); filter: brightness(1.04); }
   p { margin: 16px 0 0; font-size: 14px; color: var(--gris); }
+  p.avertissement { margin-top: 10px; font-size: 13px; max-width: 30rem; margin-left: auto; margin-right: auto; }
 </style>
 </head>
 <body>
 <main>
   <img src="logo.svg" alt="Trapèze" width="132" height="132">
-  <a id="telecharger" href="https://github.com/apotrash/trapeze/releases/latest">Télécharger pour Mac</a>
+  <div class="boutons">
+    <a id="telecharger" href="https://github.com/apotrash/trapeze/releases/latest">Télécharger pour Mac</a>
+    <a id="telecharger-windows" class="essai" href="https://github.com/apotrash/trapeze/releases/latest">Windows (essai)</a>
+  </div>
   <p id="details">Apple Silicon</p>
+  <p class="avertissement">La version Windows n’est pas encore signée : Windows affichera « Windows a protégé votre PC ». Choisissez « Informations complémentaires », puis « Exécuter quand même ».</p>
 </main>
 <script>
 /* Le bouton doit toujours mener à la dernière version sans qu'on retouche
@@ -47,11 +56,27 @@
     const reponse = await fetch('https://api.github.com/repos/apotrash/trapeze/releases/latest');
     if (!reponse.ok) return;
     const version = await reponse.json();
-    const image = (version.assets || []).find((f) => f.name.endsWith('.dmg'));
-    if (!image) return;
-    document.getElementById('telecharger').href = image.browser_download_url;
-    document.getElementById('details').textContent =
-      `Version ${String(version.tag_name).replace(/^v/, '')} · ${Math.round(image.size / 1048576)} Mo · Apple Silicon`;
+    const actifs = version.assets || [];
+    const image = actifs.find((f) => f.name.endsWith('.dmg'));
+    const windows = actifs.find((f) => f.name.endsWith('-win.zip'));
+    const numero = String(version.tag_name).replace(/^v/, '');
+    const taille = (f) => `${Math.round(f.size / 1048576)} Mo`;
+    const morceaux = [`Version ${numero}`];
+    if (image) {
+      document.getElementById('telecharger').href = image.browser_download_url;
+      morceaux.push(`Mac Apple Silicon ${taille(image)}`);
+    }
+    const bouton = document.getElementById('telecharger-windows');
+    /* Aucun paquet Windows dans cette version : le bouton disparaît plutôt que
+       de mener à une page où l'utilisateur ne trouverait rien. */
+    if (windows) {
+      bouton.href = windows.browser_download_url;
+      morceaux.push(`Windows 64 bits ${taille(windows)}`);
+    } else {
+      bouton.remove();
+      document.querySelector('.avertissement')?.remove();
+    }
+    document.getElementById('details').textContent = morceaux.join(' · ');
   } catch {}
 })();
 </script>
