@@ -3,132 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trapèze — transcription et synthèse vidéo pour Mac</title>
-<meta name="description" content="Transcrivez et résumez vos vidéos sur votre Mac. Vos fichiers ne quittent pas votre ordinateur.">
+<title>Trapèze</title>
+<meta name="description" content="Transcription et synthèse vidéo pour Mac.">
+<link rel="icon" href="logo.svg">
 <style>
-  :root {
-    --encre: #14160f; --papier: #f4f1ea; --surface: #fffdf8;
-    --trait: #e0dbd0; --gris: #6b6a63; --jaune: #e8ee6f;
-    --rayon: 14px;
-  }
+  :root { --papier: #f4f1ea; --encre: #14160f; --gris: #6b6a63; --jaune: #e8ee6f; }
   @media (prefers-color-scheme: dark) {
-    :root { --encre: #f2f0e8; --papier: #0f100c; --surface: #191a15; --trait: #2c2e26; --gris: #9a998f; }
+    :root { --papier: #0f100c; --encre: #f2f0e8; --gris: #9a998f; }
   }
   * { box-sizing: border-box; }
+  html, body { height: 100%; }
   body {
     margin: 0; background: var(--papier); color: var(--encre);
-    font: 16px/1.6 ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    font: 16px/1.5 ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
+    display: grid; place-items: center; padding: 32px;
   }
-  .page { max-width: 660px; margin: 0 auto; padding: 72px 24px 96px; }
-  h1 { font-size: 40px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; }
-  .accroche { font-size: 19px; line-height: 1.5; color: var(--gris); margin: 0 0 40px; }
-  .bouton {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--jaune); color: #14160f; text-decoration: none;
-    font-size: 17px; font-weight: 700; padding: 16px 28px; border-radius: var(--rayon);
-    border: 1px solid rgba(0,0,0,.08); transition: transform .12s ease, filter .12s ease;
+  main { text-align: center; }
+  img { width: 132px; height: 132px; border-radius: 30px; display: block; margin: 0 auto 36px; }
+  a {
+    display: inline-block; background: var(--jaune); color: #14160f;
+    text-decoration: none; font-size: 17px; font-weight: 700;
+    padding: 17px 34px; border-radius: 14px;
+    border: 1px solid rgba(0,0,0,.08);
+    transition: transform .12s ease, filter .12s ease;
   }
-  .bouton:hover { transform: translateY(-1px); filter: brightness(1.04); }
-  .sous-bouton { margin: 14px 0 0; font-size: 14px; color: var(--gris); }
-  h2 { font-size: 21px; margin: 56px 0 16px; letter-spacing: -0.01em; }
-  ol, ul { padding-left: 22px; margin: 0; }
-  li { margin: 0 0 10px; }
-  .carte {
-    background: var(--surface); border: 1px solid var(--trait);
-    border-radius: var(--rayon); padding: 22px 24px; margin: 20px 0 0;
-  }
-  .carte h3 { font-size: 15px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--gris); font-weight: 700; }
-  .carte p:last-child, .carte ul:last-child { margin-bottom: 0; }
-  code { background: rgba(128,128,128,.14); padding: 2px 6px; border-radius: 5px; font-size: .92em; }
-  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--trait); font-size: 14px; color: var(--gris); }
-  footer a { color: inherit; }
+  a:hover { transform: translateY(-1px); filter: brightness(1.04); }
+  p { margin: 16px 0 0; font-size: 14px; color: var(--gris); }
 </style>
 </head>
 <body>
-<main class="page">
-
-  <h1>Trapèze</h1>
-  <p class="accroche">
-    Transcrivez et résumez vos vidéos, sur votre Mac.
-    Vos fichiers, vos transcriptions et vos résumés restent chez vous.
-  </p>
-
-  <a class="bouton" id="telecharger" href="https://github.com/apotrash/trapeze/releases/latest">
-    Télécharger pour Mac
-  </a>
-  <p class="sous-bouton" id="details">Apple Silicon · macOS</p>
-
-  <h2>Installation</h2>
-  <ol>
-    <li>Ouvrez le fichier téléchargé, puis glissez <strong>Trapèze</strong> dans votre dossier Applications.</li>
-    <li>Lancez l’application. Aucun avertissement de sécurité : elle est signée et certifiée par Apple.</li>
-    <li>Saisissez votre code d’activation, reçu au format <code>XXXX-XXXX-XXXX-XXXX</code>.</li>
-  </ol>
-
-  <h2>Ce qu’il vous faut</h2>
-  <div class="carte">
-    <h3>Un compte Claude ou ChatGPT</h3>
-    <p>
-      Trapèze n’inclut aucun abonnement d’intelligence artificielle : il utilise le vôtre,
-      avec l’outil officiel du fournisseur. Le guide affiché au premier lancement vous accompagne
-      pour le connecter.
-    </p>
-    <p>
-      Sans fournisseur configuré, la transcription fonctionne. Seuls les résumés en ont besoin.
-    </p>
-  </div>
-
-  <h2>Vos données</h2>
-  <div class="carte">
-    <h3>Ce qui reste sur votre Mac</h3>
-    <ul>
-      <li>Vos fichiers vidéo d’origine, jamais modifiés</li>
-      <li>Vos transcriptions, vos résumés et leurs versions successives</li>
-      <li>Vos dossiers, étiquettes et favoris</li>
-    </ul>
-  </div>
-  <div class="carte">
-    <h3>Ce qui en sort, et seulement si vous le demandez</h3>
-    <p>
-      Quand vous demandez un résumé, la transcription est envoyée au fournisseur que vous avez
-      choisi, avec votre propre compte, et traitée selon ses conditions.
-    </p>
-    <p>
-      L’activation transmet une seule fois votre code et une empreinte anonyme de votre machine —
-      un calcul à sens unique, jamais l’identifiant de votre matériel.
-    </p>
-  </div>
-
-  <footer>
-    <p>
-      Configuration requise : Mac à puce Apple Silicon.
-      <a href="https://github.com/apotrash/trapeze/releases">Toutes les versions</a>
-    </p>
-  </footer>
-
+<main>
+  <img src="logo.svg" alt="Trapèze" width="132" height="132">
+  <a id="telecharger" href="https://github.com/apotrash/trapeze/releases/latest">Télécharger pour Mac</a>
+  <p id="details">Apple Silicon</p>
 </main>
-
 <script>
-/* Le bouton doit toujours mener à la dernière version, sans qu'on ait à
-   modifier cette page à chaque publication. L'API publique de GitHub donne
-   le fichier exact ; si elle ne répond pas, le lien de repli mène à la page
-   des versions, qui reste utilisable. */
+/* Le bouton doit toujours mener à la dernière version sans qu'on retouche
+   cette page à chaque publication. Si l'API de GitHub ne répond pas, le lien
+   de repli mène à la page des versions, qui reste utilisable. */
 (async () => {
-  const bouton = document.getElementById('telecharger');
-  const details = document.getElementById('details');
   try {
     const reponse = await fetch('https://api.github.com/repos/apotrash/trapeze/releases/latest');
     if (!reponse.ok) return;
     const version = await reponse.json();
     const image = (version.assets || []).find((f) => f.name.endsWith('.dmg'));
     if (!image) return;
-    bouton.href = image.browser_download_url;
-    const megaoctets = Math.round(image.size / 1048576);
-    details.textContent = `Version ${String(version.tag_name).replace(/^v/, '')} · ${megaoctets} Mo · Apple Silicon`;
-  } catch {
-    /* Hors ligne ou API indisponible : le lien de repli reste juste. */
-  }
+    document.getElementById('telecharger').href = image.browser_download_url;
+    document.getElementById('details').textContent =
+      `Version ${String(version.tag_name).replace(/^v/, '')} · ${Math.round(image.size / 1048576)} Mo · Apple Silicon`;
+  } catch {}
 })();
 </script>
 </body>
